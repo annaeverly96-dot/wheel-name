@@ -1,0 +1,783 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Names of Wheel – A Modern Way to Choose Names Fairly</title>
+  <meta name="description" content="Names of Wheel is a modern, transparent way to pick names fairly using a digital spinning wheel—ideal for classrooms, workplaces, and giveaways." />
+
+  <style>
+    :root{
+      /* Premium “brand-to-brand” UI palette */
+      --bg: #070A12;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.09);
+      --border: rgba(255,255,255,.14);
+
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.72);
+
+      --brand: #7C5CFF;   /* primary */
+      --brand2: #22C55E;  /* accent */
+      --brand3: #06B6D4;  /* secondary */
+
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
+      --radius: 18px;
+      --radius-lg: 26px;
+
+      --max: 1180px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color: var(--text);
+      background:
+        radial-gradient(1200px 700px at 15% -10%, rgba(124,92,255,.35), transparent 60%),
+        radial-gradient(900px 600px at 110% 15%, rgba(34,197,94,.25), transparent 55%),
+        radial-gradient(800px 600px at 60% 120%, rgba(6,182,212,.20), transparent 55%),
+        var(--bg);
+      line-height:1.65;
+    }
+
+    a{ color: inherit; text-decoration:none; }
+    a:focus{ outline:2px solid rgba(124,92,255,.7); outline-offset:3px; border-radius:10px; }
+
+    .container{
+      width:100%;
+      max-width: var(--max);
+      margin:0 auto;
+      padding: 0 20px;
+    }
+
+    /* HEADER (single-line) */
+    header{
+      position: sticky;
+      top:0;
+      z-index:10;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(to bottom, rgba(7,10,18,.88), rgba(7,10,18,.45));
+      border-bottom: 1px solid var(--border);
+    }
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+      padding: 14px 0;
+      flex-wrap: nowrap; /* keep header single-line */
+      overflow-x: auto;  /* safe on small screens */
+      scrollbar-width: none;
+    }
+    .topbar::-webkit-scrollbar{ display:none; }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      white-space: nowrap;
+      flex: 0 0 auto;
+    }
+    .logo{
+      width:40px;height:40px;border-radius: 14px;
+      background: conic-gradient(from 180deg, var(--brand), var(--brand2), var(--brand3), var(--brand));
+      box-shadow: 0 12px 35px rgba(124,92,255,.20);
+      border: 1px solid rgba(255,255,255,.18);
+      flex: 0 0 auto;
+    }
+    .brand-title{
+      font-weight: 900;
+      letter-spacing: -0.2px;
+      font-size: 14px;
+      margin:0;
+      line-height: 1.1;
+    }
+    .brand-sub{
+      display:inline-block;
+      margin-left: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(124,92,255,.30);
+      background: rgba(124,92,255,.12);
+      color: rgba(255,255,255,.88);
+      font-weight: 800;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      white-space: nowrap;
+      flex: 0 0 auto;
+    }
+    .pill{
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+      font-weight: 800;
+      font-size: 13px;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+    }
+    .pill:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.07);
+      border-color: rgba(255,255,255,.22);
+      color: var(--text);
+    }
+    .cta{
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 900;
+      font-size: 13px;
+      border: 1px solid rgba(124,92,255,.55);
+      background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(6,182,212,.85));
+      box-shadow: 0 12px 35px rgba(124,92,255,.24);
+      transition: transform .15s ease, filter .15s ease;
+    }
+    .cta:hover{ transform: translateY(-1px); filter: brightness(1.05); }
+
+    /* HERO */
+    .hero{ padding: 30px 0 10px; }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 20px;
+      align-items: stretch;
+    }
+    .panel{
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .panel-inner{ padding: 24px; }
+
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(34,197,94,.28);
+      background: rgba(34,197,94,.14);
+      color: rgba(255,255,255,.88);
+      font-weight: 900;
+      font-size: 12px;
+      letter-spacing:.25px;
+      margin-bottom: 12px;
+    }
+    .dot{
+      width:8px;height:8px;border-radius:999px;
+      background: var(--brand2);
+      box-shadow: 0 0 0 6px rgba(34,197,94,.12);
+    }
+
+    h1{
+      margin:0 0 10px;
+      font-size: clamp(28px, 3.2vw, 44px);
+      line-height: 1.12;
+      letter-spacing: -0.7px;
+    }
+    .lead{
+      margin:0;
+      color: var(--muted);
+      font-size: 15px;
+      max-width: 72ch;
+    }
+
+    .hero-actions{
+      display:flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.05);
+      color: var(--text);
+      font-weight: 900;
+      font-size: 14px;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.22);
+    }
+    .btn.primary{
+      border-color: rgba(124,92,255,.55);
+      background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(34,197,94,.75));
+      box-shadow: 0 14px 40px rgba(124,92,255,.20);
+    }
+
+    /* Highlight links */
+    .link{
+      color: rgba(255,255,255,.95);
+      font-weight: 900;
+      border-bottom: 2px solid rgba(34,197,94,.60);
+      padding-bottom: 2px;
+      transition: border-color .15s ease, color .15s ease;
+    }
+    .link:hover{
+      border-color: rgba(6,182,212,.75);
+      color: #fff;
+    }
+
+    /* Side stats */
+    .stats{
+      display:grid;
+      gap: 12px;
+      padding: 18px;
+    }
+    .stat{
+      padding: 14px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.04);
+    }
+    .stat strong{
+      display:block;
+      font-size: 16px;
+      letter-spacing: -0.3px;
+    }
+    .stat span{
+      display:block;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 13px;
+      margin-top: 2px;
+    }
+
+    /* CONTENT SECTIONS */
+    main{ padding: 8px 0 34px; }
+    .section{
+      margin-top: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .section-inner{ padding: 22px; }
+    h2{
+      margin: 0 0 10px;
+      font-size: 20px;
+      letter-spacing: -0.3px;
+    }
+    p{
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 12px;
+    }
+    .card{
+      padding: 16px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.04);
+    }
+    .card h3{
+      margin: 0 0 8px;
+      font-size: 16px;
+      letter-spacing: -0.2px;
+      color: rgba(255,255,255,.92);
+    }
+    .card p{ margin:0; font-size: 14px; }
+
+    /* Required list section */
+    .benefits{
+      list-style:none;
+      padding:0;
+      margin: 10px 0 0;
+      display:grid;
+      gap: 10px;
+    }
+    .benefits li{
+      display:flex;
+      gap: 12px;
+      align-items:flex-start;
+      padding: 14px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.92);
+      font-weight: 900;
+    }
+    .check{
+      width: 22px; height: 22px;
+      border-radius: 8px;
+      background: rgba(34,197,94,.16);
+      border: 1px solid rgba(34,197,94,.30);
+      position: relative;
+      flex: 0 0 auto;
+      margin-top: 2px;
+    }
+    .check:after{
+      content:"";
+      position:absolute;
+      left: 6px; top: 5px;
+      width: 8px; height: 4px;
+      border-left: 2px solid rgba(255,255,255,.92);
+      border-bottom: 2px solid rgba(255,255,255,.92);
+      transform: rotate(-45deg);
+    }
+
+    /* Table */
+    .table-wrap{
+      overflow:auto;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      margin-top: 12px;
+    }
+    table{
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+    }
+    th, td{
+      padding: 14px;
+      border-bottom: 1px solid rgba(255,255,255,.10);
+      text-align:left;
+      vertical-align: top;
+      font-size: 14px;
+    }
+    th{
+      text-transform: uppercase;
+      font-size: 13px;
+      letter-spacing: .25px;
+      color: rgba(255,255,255,.90);
+      background: rgba(255,255,255,.04);
+    }
+    td{
+      color: var(--muted);
+      font-weight: 700;
+    }
+    tr:last-child td{ border-bottom:none; }
+
+    /* FOOTER */
+    footer{
+      border-top: 1px solid var(--border);
+      padding: 24px 0 28px;
+      background: linear-gradient(to top, rgba(7,10,18,.95), rgba(7,10,18,.65));
+    }
+    .footer-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 16px;
+      align-items: start;
+    }
+    .footer p{
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .social{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .social a{
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.88);
+      font-weight: 900;
+      font-size: 13px;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+    }
+    .social a:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.07);
+      border-color: rgba(255,255,255,.22);
+    }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero-grid{ grid-template-columns: 1fr; }
+      .grid-2{ grid-template-columns: 1fr; }
+      .footer-grid{ grid-template-columns: 1fr; }
+      .social{ justify-content:flex-start; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER (ONE LINE) -->
+  <header>
+    <div class="container">
+      <div class="topbar" aria-label="Header Bar">
+        <div class="brand" aria-label="Brand">
+          <div class="logo" aria-hidden="true"></div>
+          <div class="brand-title">Names of Wheel</div>
+          <div class="brand-sub">Fair • Fast • Fun</div>
+        </div>
+
+        <nav aria-label="Top Navigation">
+          <a class="pill" href="#concept">Concept</a>
+          <a class="pill" href="#process">Process</a>
+          <a class="pill" href="#benefits">Benefits</a>
+          <a class="pill" href="#comparison">Comparison</a>
+          <a class="cta" href="#conclusion">Read Conclusion</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- BODY -->
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <article class="panel">
+            <div class="panel-inner">
+              <div class="kicker"><span class="dot"></span> Modern transparency for fair name selection</div>
+
+              <h1>Names of Wheel – A Modern Way to Choose Names Fairly</h1>
+
+              <p class="lead">
+                Selecting names in a fair way has always been a challenge, especially when multiple people are involved. Whether it is a
+                classroom activity, an office task, or an online giveaway, people want assurance that the selection process is honest.
+                Manual methods often fail to deliver that confidence. This is why the concept of Names of Wheel has become increasingly
+                popular.
+              </p>
+
+              <!-- FIRST LINK: intro mid -->
+              <p class="lead" style="margin-top:12px;">
+                Names of Wheel refers to a digital approach where names are placed into a spinning wheel and one name is selected at
+                random. This method removes personal influence and replaces guesswork with a visible, automated process that everyone
+                can trust. Start with
+                <a class="link" href="https://wheelofnames.ph/" target="_blank" rel="noopener">Names of Wheel</a>
+                for a quick, clean spinning-wheel experience.
+              </p>
+
+              <div class="hero-actions">
+                <a class="btn primary" href="#process">See How It Works</a>
+                <a class="btn" href="#situations">Explore Use Cases</a>
+              </div>
+            </div>
+          </article>
+
+          <aside class="panel" aria-label="Quick Highlights">
+            <div class="stats">
+              <div class="stat">
+                <strong>Trust &amp; Transparency</strong>
+                <span>Visible process, less doubt</span>
+              </div>
+              <div class="stat">
+                <strong>Fast Setup</strong>
+                <span>Paste names, spin, done</span>
+              </div>
+              <div class="stat">
+                <strong>More Engagement</strong>
+                <span>Anticipation keeps people focused</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <!-- Concept -->
+      <section class="section" id="concept">
+        <div class="section-inner">
+          <h2>What the Names of Wheel Concept Is About</h2>
+          <p>
+            At its core, Names of Wheel is a system that gives every name an equal opportunity. Instead of relying on memory or manual
+            selection, the wheel visually represents all entries. Once the wheel spins, the final result feels natural and unbiased.
+          </p>
+          <p>
+            The visual nature of the wheel plays a key role. People are more likely to accept a result when they can see how it was
+            generated. This makes the system suitable for environments where fairness and transparency are important.
+          </p>
+        </div>
+      </section>
+
+      <!-- Problems -->
+      <section class="section" id="problems">
+        <div class="section-inner">
+          <h2>Why Traditional Name Selection Causes Problems</h2>
+          <div class="grid-2">
+            <div class="card">
+              <h3>Human Judgment Creates Doubt</h3>
+              <p>
+                Many traditional name-picking methods depend on human judgment. Teachers may subconsciously call on familiar students,
+                managers may select names they remember first, and event hosts may unintentionally repeat the same choices. Even when
+                done honestly, these methods create doubt.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Inefficiency Slows Everything Down</h3>
+              <p>
+                Another issue is inefficiency. Writing names on slips of paper or scrolling through lists takes time. In busy settings,
+                this slows down activities and disrupts flow. On top of that, traditional methods lack excitement, making participation
+                feel dull.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Improvement -->
+      <section class="section" id="improves">
+        <div class="section-inner">
+          <h2>How Names of Wheel Improves the Experience</h2>
+          <p>
+            Names of Wheel removes human involvement from the final decision. Once the names are entered, the system controls the
+            selection. This guarantees equal chances for everyone and prevents favoritism.
+          </p>
+          <p>
+            The spinning action also adds anticipation. Watching the wheel rotate builds excitement and keeps attention focused. This
+            makes the experience more engaging for participants and observers alike.
+          </p>
+        </div>
+      </section>
+
+      <!-- Process -->
+      <section class="section" id="process">
+        <div class="section-inner">
+          <h2>How the Process Works</h2>
+          <p>
+            Using a name wheel is straightforward. Users add names into a list, which automatically appears as sections on the wheel.
+            After setting everything up, the wheel is spun.
+          </p>
+          <p>
+            The rotation lasts for a few seconds before stopping on one name. The selected result is clearly shown, leaving no
+            confusion. Because the entire process happens digitally, it requires no preparation or physical materials.
+          </p>
+        </div>
+      </section>
+
+      <!-- Features -->
+      <section class="section" id="features">
+        <div class="section-inner">
+          <h2>Features That Add Value</h2>
+          <p>
+            Modern wheel-based name selectors offer features that improve usability. Users can customize colors, enable sound effects,
+            and adjust how long the wheel spins. These options make the experience more interactive and enjoyable.
+          </p>
+          <p>
+            Some tools also allow saving name lists. This is helpful for teachers, team leaders, and organizers who work with the same
+            group repeatedly. Cross-device compatibility ensures smooth use on both mobile and desktop platforms.
+          </p>
+        </div>
+      </section>
+
+      <!-- Benefits (Required list section) -->
+      <section class="section" id="benefits">
+        <div class="section-inner">
+          <h2>Key Benefits</h2>
+          <ul class="benefits" aria-label="Key Benefits list">
+            <li><span class="check" aria-hidden="true"></span> Ensures fair and transparent selection</li>
+            <li><span class="check" aria-hidden="true"></span> Reduces time spent on manual methods</li>
+            <li><span class="check" aria-hidden="true"></span> Keeps participants engaged</li>
+            <li><span class="check" aria-hidden="true"></span> Easy for beginners to use</li>
+            <li><span class="check" aria-hidden="true"></span> Suitable for many different situations</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Situations -->
+      <section class="section" id="situations">
+        <div class="section-inner">
+          <h2>Common Situations Where It Is Used</h2>
+          <p>
+            In education, teachers use name wheels to select students for questions, discussions, or group work. This helps maintain
+            balance and encourages equal participation.
+          </p>
+
+          <!-- SECOND LINK: content mid -->
+          <p>
+            In workplaces, managers use Names of Wheel for task distribution, team formation, or reward selection. This reduces
+            disputes and improves trust within teams. For a CricTime-style interactive spin experience, explore
+            <a class="link" href="https://annaeverly96-dot.github.io/Name-wheel/" target="_blank" rel="noopener">CricTime Name Wheel</a>
+            and keep your audience fully engaged during live sessions.
+          </p>
+
+          <p>
+            Online creators and event hosts use spinning wheels during live sessions and contests. Random selection makes giveaways more
+            credible and increases audience engagement.
+          </p>
+        </div>
+      </section>
+
+      <!-- Better -->
+      <section class="section" id="better">
+        <div class="section-inner">
+          <h2>Why Names of Wheel Is Better Than Manual Methods</h2>
+          <p>
+            Manual methods rely heavily on perception. Even when a decision is fair, people may not believe it if the process is
+            unclear. Names of Wheel solves this issue by making the selection visible.
+          </p>
+          <p>
+            Automation also improves consistency. Each spin follows the same rules, unlike manual selection which can vary depending on
+            the person making the choice. This reliability makes digital tools more effective.
+          </p>
+        </div>
+      </section>
+
+      <!-- Comparison Table -->
+      <section class="section" id="comparison">
+        <div class="section-inner">
+          <h2>Comparison Table: Names of Wheel vs Manual Selection</h2>
+          <p>Below is the table section, clearly showing the difference.</p>
+
+          <div class="table-wrap" role="region" aria-label="Comparison table" tabindex="0">
+            <table>
+              <thead>
+                <tr>
+                  <th>Aspect</th>
+                  <th>Names of Wheel</th>
+                  <th>Manual Selection</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Fairness</td>
+                  <td>Transparent and equal</td>
+                  <td>Often doubted</td>
+                </tr>
+                <tr>
+                  <td>Speed</td>
+                  <td>Fast</td>
+                  <td>Slow</td>
+                </tr>
+                <tr>
+                  <td>Engagement</td>
+                  <td>Interactive</td>
+                  <td>Boring</td>
+                </tr>
+                <tr>
+                  <td>Accuracy</td>
+                  <td>System-based</td>
+                  <td>Human error possible</td>
+                </tr>
+                <tr>
+                  <td>Scalability</td>
+                  <td>Handles large lists</td>
+                  <td>Difficult to manage</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Natural content vs SEO tricks -->
+      <section class="section" id="natural-content">
+        <div class="section-inner">
+          <h2>Why Natural Content Matters More Than SEO Tricks</h2>
+          <p>
+            Search engines now focus on content that genuinely helps users. Writing only to include keywords often results in awkward
+            and untrustworthy articles. Natural explanations, real use cases, and clear structure perform better in the long run.
+          </p>
+          <p>
+            Content built around user intent rather than keyword repetition attracts readers and keeps them engaged. This improves
+            credibility and long-term performance.
+          </p>
+        </div>
+      </section>
+
+      <!-- Who benefits -->
+      <section class="section" id="who-benefits">
+        <div class="section-inner">
+          <h2>Who Can Benefit From Names of Wheel</h2>
+          <p>
+            Names of Wheel is designed for everyone. Beginners appreciate its simplicity, while experienced users value its flexibility.
+            Because no personal data or payment is required, users feel comfortable using it regularly.
+          </p>
+          <p>
+            Its clean design and fast response make it suitable for small groups, large classrooms, and online audiences alike. The tool
+            adapts easily to different needs.
+          </p>
+        </div>
+      </section>
+
+      <!-- Conclusion -->
+      <section class="section" id="conclusion">
+        <div class="section-inner">
+          <h2>Final Conclusion</h2>
+          <p>
+            Names of Wheel offers a fair, simple, and engaging way to select names without confusion or bias. By removing personal
+            influence and adding transparency, it improves trust and participation.
+          </p>
+          <p>
+            Whether used in education, professional settings, or online events, this approach makes decision-making smoother and more
+            enjoyable. For anyone seeking a reliable alternative to manual name selection, Names of Wheel provides a modern and
+            practical solution.
+          </p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="brand" style="gap:10px;">
+            <div class="logo" aria-hidden="true"></div>
+            <div class="brand-title" style="font-size:14px;">Names of Wheel</div>
+          </div>
+          <p>
+            Transparent spins for fair decisions—built for classrooms, workplaces, and online giveaways.
+          </p>
+          <p style="font-size:12px; color:rgba(255,255,255,.55); font-weight:800;">
+            © <span id="year"></span> All rights reserved.
+          </p>
+        </div>
+
+        <div class="social" aria-label="Social Links">
+          <a href="#" aria-label="Facebook">Facebook</a>
+          <a href="#" aria-label="Instagram">Instagram</a>
+          <a href="#" aria-label="X (Twitter)">X</a>
+          <a href="#" aria-label="YouTube">YouTube</a>
+          <a href="#" aria-label="LinkedIn">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Smooth scroll for internal links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener("click", (e)=>{
+        const href = a.getAttribute("href");
+        if(href && href.length > 1){
+          const el = document.querySelector(href);
+          if(el){
+            e.preventDefault();
+            el.scrollIntoView({behavior:"smooth", block:"start"});
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
